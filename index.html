@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Emerald Estates — Luxury Living in Karimnagar</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --emerald: #1B4D3E;
+    --emerald-light: #245e4c;
+    --emerald-dark: #122e25;
+    --gold: #D4AF37;
+    --gold-light: #e8cc6a;
+    --blue: #1E3A8A;
+    --beige: #F5F1E8;
+    --beige-dark: #ede8db;
+    --text: #2D3748;
+    --white: #ffffff;
+    --shadow: 0 4px 12px rgba(0,0,0,0.1);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.18);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Poppins', sans-serif; background: var(--beige); color: var(--text); overflow-x: hidden; }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+    background: rgba(27,77,62,0.97); backdrop-filter: blur(12px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%; height: 64px;
+    border-bottom: 1px solid rgba(212,175,55,0.25);
+  }
+  .nav-logo { font-family: 'Playfair Display', serif; color: var(--white); font-size: 1.35rem; font-weight: 700; letter-spacing: 1px; }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; transition: color .2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta { background: var(--gold); color: var(--emerald); padding: 9px 20px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; text-decoration: none; letter-spacing: 0.5px; transition: all .2s; }
+  .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--emerald-dark) 0%, #0d2a20 40%, #1a3d30 70%, var(--emerald) 100%);
+    overflow: hidden; padding-top: 64px;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=80') center/cover no-repeat;
+    opacity: 0.18; mix-blend-mode: luminosity;
+  }
+  .hero-geo {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(212,175,55,0.06) 80px),
+                      repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(212,175,55,0.06) 80px);
+  }
+  .hero-glow {
+    position: absolute; top: 20%; left: 50%; transform: translateX(-50%);
+    width: 700px; height: 700px;
+    background: radial-gradient(ellipse, rgba(212,175,55,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  /* Trust badges */
+  .trust-badges {
+    position: absolute; top: 88px; right: 4%;
+    display: flex; flex-direction: column; gap: 10px; z-index: 10;
+  }
+  .badge {
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(212,175,55,0.5);
+    backdrop-filter: blur(10px); border-radius: 8px;
+    padding: 8px 16px; text-align: center;
+    color: var(--white); font-size: 0.72rem; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .badge span { display: block; color: var(--gold); font-size: 0.62rem; font-weight: 500; margin-top: 1px; }
+  /* Hero content */
+  .hero-content { position: relative; z-index: 5; text-align: center; padding: 0 20px; max-width: 900px; }
+  .hero-eyebrow { color: var(--gold); font-size: 0.78rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 18px; opacity: 0; animation: fadeUp .8s .2s forwards; }
+  .hero-h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.6rem, 6vw, 4.5rem); color: var(--white); font-weight: 900; line-height: 1.08; letter-spacing: -1px; margin-bottom: 20px; opacity: 0; animation: fadeUp .8s .4s forwards; }
+  .hero-h1 em { color: var(--gold); font-style: normal; }
+  .hero-sub { font-size: clamp(1rem, 2vw, 1.3rem); color: rgba(255,255,255,0.75); font-weight: 400; margin-bottom: 12px; opacity: 0; animation: fadeUp .8s .55s forwards; }
+  .hero-tagline { font-size: 1.05rem; color: var(--gold); font-weight: 600; letter-spacing: 1px; margin-bottom: 42px; opacity: 0; animation: fadeUp .8s .65s forwards; }
+  .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; opacity: 0; animation: fadeUp .8s .8s forwards; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 15px 30px; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.5px; text-decoration: none; cursor: pointer; border: none; transition: all .25s; }
+  .btn-emerald { background: var(--emerald); color: var(--white); border: 2px solid var(--emerald-light); }
+  .btn-emerald:hover { background: var(--emerald-light); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(27,77,62,0.5); }
+  .btn-gold { background: var(--gold); color: var(--emerald-dark); }
+  .btn-gold:hover { background: var(--gold-light); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(212,175,55,0.4); }
+  .btn-blue { background: var(--blue); color: var(--white); }
+  .btn-blue:hover { background: #2449b0; transform: translateY(-3px); box-shadow: 0 8px 24px rgba(30,58,138,0.4); }
+  /* Bounce arrow */
+  .hero-arrow { position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%); color: var(--white); opacity: 0.7; cursor: pointer; animation: bounce 2s infinite; }
+  .hero-arrow svg { width: 36px; height: 36px; }
+  @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(10px)} }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
+  /* ── STATS ── */
+  .stats { background: var(--beige); padding: 70px 5%; }
+  .section-label { text-align: center; font-size: 0.75rem; font-weight: 700; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 8px; }
+  .section-title { font-family: 'Playfair Display', serif; text-align: center; font-size: clamp(1.8rem, 3vw, 2.6rem); color: var(--emerald); font-weight: 700; margin-bottom: 50px; }
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; max-width: 960px; margin: 0 auto; }
+  .stat-card {
+    background: var(--white); border: 2px solid var(--emerald); border-radius: 12px;
+    padding: 32px 20px; text-align: center; box-shadow: var(--shadow);
+    transition: all .25s;
+  }
+  .stat-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--gold); }
+  .stat-icon { font-size: 2.2rem; margin-bottom: 12px; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2.6rem; color: var(--emerald); font-weight: 900; line-height: 1; }
+  .stat-label { font-size: 0.82rem; color: #6b7280; font-weight: 500; margin-top: 6px; letter-spacing: 0.3px; }
+
+  /* ── HIGHLIGHTS ── */
+  .highlights { background: var(--emerald-dark); padding: 80px 5%; }
+  .highlights .section-title { color: var(--white); }
+  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto; }
+  .feature-card {
+    background: rgba(255,255,255,0.05); border: 1.5px solid rgba(212,175,55,0.35);
+    border-radius: 14px; padding: 36px 28px; text-align: center;
+    transition: all .3s; position: relative; overflow: hidden;
+  }
+  .feature-card::before { content:''; position:absolute; inset:0; background: linear-gradient(135deg, rgba(212,175,55,0.06) 0%, transparent 60%); opacity:0; transition:.3s; }
+  .feature-card:hover { border-color: var(--gold); transform: translateY(-6px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+  .feature-card:hover::before { opacity:1; }
+  .feature-icon { font-size: 3.2rem; margin-bottom: 16px; }
+  .feature-check { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: var(--gold); border-radius: 50%; color: var(--emerald-dark); font-size: 0.7rem; font-weight: 700; margin-bottom: 12px; }
+  .feature-name { font-size: 1rem; color: var(--white); font-weight: 700; margin-bottom: 8px; }
+  .feature-desc { font-size: 0.8rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+  /* ── FLOOR PLANS ── */
+  .floorplans { background: var(--beige); padding: 80px 5%; }
+  .tabs { display: flex; gap: 0; border-radius: 10px; overflow: hidden; border: 2px solid var(--emerald); max-width: 500px; margin: 0 auto 50px; }
+  .tab-btn { flex: 1; padding: 14px 10px; background: transparent; border: none; cursor: pointer; font-family: 'Poppins', sans-serif; font-size: 0.85rem; font-weight: 700; color: var(--emerald); letter-spacing: 0.3px; transition: all .2s; }
+  .tab-btn.active { background: var(--emerald); color: var(--white); }
+  .tab-btn:not(:last-child) { border-right: 2px solid var(--emerald); }
+  .plan-content { display: none; max-width: 1000px; margin: 0 auto; }
+  .plan-content.active { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; animation: fadeIn .4s ease; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+  .plan-img { width: 100%; aspect-ratio: 4/3; border-radius: 14px; object-fit: cover; box-shadow: var(--shadow-lg); background: linear-gradient(135deg, #e8e0cc, #d4c9b0); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .plan-img-inner { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #1B4D3E22, #D4AF3711); }
+  .plan-placeholder { font-size: 5rem; opacity: .5; }
+  .plan-info h3 { font-family: 'Playfair Display', serif; font-size: 1.9rem; color: var(--emerald); margin-bottom: 8px; }
+  .plan-area { font-size: 0.85rem; color: var(--gold); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px; }
+  .plan-specs { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+  .plan-specs li { display: flex; align-items: center; gap: 12px; font-size: 0.88rem; color: var(--text); }
+  .plan-specs li::before { content: '✓'; display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; background: var(--emerald); color: var(--white); border-radius: 50%; font-size: 0.65rem; font-weight: 700; flex-shrink: 0; }
+  .plan-price { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--emerald); font-weight: 700; margin-bottom: 20px; }
+  .plan-price span { font-size: 0.85rem; color: #6b7280; font-family: 'Poppins', sans-serif; font-weight: 400; }
+
+  /* ── AMENITIES ── */
+  .amenities { background: var(--white); padding: 80px 5%; }
+  .amenities-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1100px; margin: 0 auto; }
+  .amenity-card {
+    background: var(--beige); border: 1.5px solid var(--emerald); border-radius: 12px;
+    width: 100%; aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+    padding: 20px; text-align: center; box-shadow: var(--shadow); transition: all .25s;
+  }
+  .amenity-card:hover { background: var(--emerald); border-color: var(--gold); transform: scale(1.04); box-shadow: var(--shadow-lg); }
+  .amenity-card:hover .amenity-name { color: var(--white); }
+  .amenity-card:hover .amenity-icon { filter: invert(1) brightness(10); }
+  .amenity-icon { font-size: 2.5rem; transition: .25s; }
+  .amenity-name { font-size: 0.82rem; font-weight: 700; color: var(--emerald); letter-spacing: 0.3px; }
+
+  /* ── PRICING ── */
+  .pricing { background: var(--beige-dark); padding: 80px 5%; }
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1050px; margin: 0 auto; }
+  .price-card {
+    background: var(--white); border: 2px solid var(--emerald); border-radius: 16px;
+    padding: 40px 30px; text-align: center; box-shadow: var(--shadow); transition: all .3s; position: relative;
+  }
+  .price-card.featured { border-color: var(--gold); border-width: 3px; transform: scale(1.04); box-shadow: 0 8px 40px rgba(212,175,55,0.25); }
+  .price-card.featured::before { content: '⭐ POPULAR'; position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--gold); color: var(--emerald-dark); font-size: 0.68rem; font-weight: 800; letter-spacing: 1.5px; padding: 4px 18px; border-radius: 20px; white-space: nowrap; }
+  .price-card:hover { transform: scale(1.04); box-shadow: var(--shadow-lg); }
+  .price-card.featured:hover { transform: scale(1.06); }
+  .price-tag { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--emerald); font-weight: 900; margin-bottom: 6px; }
+  .price-sub { font-size: 0.75rem; color: #9ca3af; margin-bottom: 28px; }
+  .price-splits { display: flex; flex-direction: column; gap: 14px; margin-bottom: 32px; }
+  .split-row { display: flex; align-items: center; justify-content: space-between; font-size: 0.83rem; }
+  .split-label { color: #6b7280; }
+  .split-val { font-weight: 700; color: var(--emerald); font-size: 1rem; }
+  .split-row.interest .split-val { color: var(--gold); }
+  hr.split-line { border: none; border-top: 1px dashed #e5e7eb; }
+
+  /* ── URGENCY ── */
+  .urgency { background: linear-gradient(135deg, var(--emerald-dark), #0a1f16); padding: 80px 5%; text-align: center; position: relative; overflow: hidden; }
+  .urgency::before { content:''; position:absolute; inset:0; background:url('https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=1200&q=60') center/cover; opacity:.08; }
+  .urgency-inner { position: relative; z-index: 2; }
+  .urgency-eyebrow { font-size: 0.8rem; font-weight: 800; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 14px; }
+  .urgency-h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 3rem); color: var(--white); margin-bottom: 10px; }
+  .urgency-units { font-size: 1.1rem; color: rgba(255,255,255,0.7); margin-bottom: 32px; }
+  .progress-wrap { max-width: 500px; margin: 0 auto 14px; }
+  .progress-bar-bg { background: rgba(255,255,255,0.15); border-radius: 999px; height: 14px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; width: 75%; background: linear-gradient(90deg, var(--gold), #e8cc6a); border-radius: 999px; animation: growBar 1.5s 1s ease forwards; transform-origin: left; }
+  @keyframes growBar { from{width:0} to{width:75%} }
+  .progress-label { font-size: 0.75rem; color: var(--gold); font-weight: 700; margin-top: 8px; text-align: right; }
+  .countdown { display: flex; justify-content: center; gap: 24px; margin: 36px 0; }
+  .count-unit { text-align: center; }
+  .count-num { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 4vw, 3.2rem); color: var(--gold); font-weight: 900; line-height: 1; }
+  .count-sep { font-size: 2.5rem; color: rgba(212,175,55,0.4); line-height: 1.1; align-self: flex-start; padding-top: 4px; }
+  .count-lbl { font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; color: rgba(255,255,255,0.5); text-transform: uppercase; margin-top: 4px; }
+
+  /* ── FORM ── */
+  .inquiry { background: var(--beige); padding: 80px 5%; }
+  .inquiry-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1050px; margin: 0 auto; align-items: start; }
+  .inquiry-img { border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-lg); aspect-ratio: 4/5; background: linear-gradient(160deg, var(--emerald), var(--emerald-dark)); display: flex; align-items: flex-end; }
+  .inquiry-img-inner { width: 100%; padding: 36px; }
+  .inquiry-img-stat { color: var(--white); margin-bottom: 14px; }
+  .inquiry-img-stat strong { font-family: 'Playfair Display', serif; font-size: 1.5rem; display: block; }
+  .inquiry-img-stat span { font-size: 0.78rem; color: rgba(255,255,255,0.6); }
+  .form-wrap { background: var(--white); border-radius: 16px; padding: 40px 36px; box-shadow: var(--shadow-lg); border: 1px solid rgba(27,77,62,0.12); }
+  .form-wrap h3 { font-family: 'Playfair Display', serif; font-size: 1.7rem; color: var(--emerald); margin-bottom: 6px; }
+  .form-wrap p { font-size: 0.83rem; color: #6b7280; margin-bottom: 28px; }
+  .form-group { margin-bottom: 18px; }
+  .form-group label { display: block; font-size: 0.78rem; font-weight: 700; color: var(--emerald); margin-bottom: 6px; letter-spacing: 0.3px; text-transform: uppercase; }
+  .form-group input, .form-group select { width: 100%; padding: 13px 16px; border: 1.5px solid #d1d5db; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 0.88rem; color: var(--text); background: var(--beige); outline: none; transition: border-color .2s; }
+  .form-group input:focus, .form-group select:focus { border-color: var(--emerald); background: var(--white); }
+  .budget-label { display: flex; justify-content: space-between; }
+  .budget-val { color: var(--gold); font-weight: 700; }
+  input[type=range] { width: 100%; accent-color: var(--emerald); }
+  .success-msg { display: none; background: #d1fae5; border: 1px solid #6ee7b7; border-radius: 8px; padding: 14px 18px; color: #065f46; font-size: 0.88rem; font-weight: 600; margin-top: 14px; }
+  .success-msg.show { display: block; animation: fadeIn .4s ease; }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials { background: var(--emerald-dark); padding: 80px 5%; }
+  .testimonials .section-title { color: var(--white); }
+  .testi-wrap { max-width: 720px; margin: 0 auto; position: relative; }
+  .testi-card { background: rgba(255,255,255,0.06); border: 1.5px solid rgba(212,175,55,0.3); border-radius: 20px; padding: 48px 50px; text-align: center; display: none; }
+  .testi-card.active { display: block; animation: fadeIn .5s ease; }
+  .testi-photo { width: 90px; height: 90px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--gold-light)); margin: 0 auto 18px; display: flex; align-items: center; justify-content: center; font-size: 2rem; border: 3px solid var(--gold); }
+  .testi-stars { color: var(--gold); font-size: 1.1rem; margin-bottom: 20px; letter-spacing: 2px; }
+  .testi-quote { font-size: 1.05rem; color: rgba(255,255,255,0.85); line-height: 1.7; font-style: italic; margin-bottom: 22px; }
+  .testi-name { font-size: 0.92rem; font-weight: 700; color: var(--white); }
+  .testi-prop { font-size: 0.78rem; color: var(--gold); font-weight: 500; margin-top: 3px; }
+  .testi-nav { display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 30px; }
+  .testi-arrow { background: rgba(255,255,255,0.1); border: 1.5px solid rgba(212,175,55,0.4); color: var(--gold); width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1rem; transition: all .2s; }
+  .testi-arrow:hover { background: var(--gold); color: var(--emerald-dark); }
+  .testi-dots { display: flex; gap: 8px; }
+  .testi-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.2); cursor: pointer; transition: all .2s; }
+  .testi-dot.active { background: var(--gold); }
+
+  /* ── TRUST ── */
+  .trust { background: var(--emerald); padding: 50px 5%; }
+  .trust-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; max-width: 1000px; margin: 0 auto; }
+  .trust-box { text-align: center; padding: 24px 16px; border: 1.5px solid rgba(212,175,55,0.35); border-radius: 12px; }
+  .trust-check { font-size: 1.6rem; margin-bottom: 8px; }
+  .trust-title { font-size: 0.88rem; color: var(--white); font-weight: 700; }
+  .trust-sub { font-size: 0.74rem; color: rgba(255,255,255,0.55); margin-top: 4px; }
+
+  /* ── FINAL CTA ── */
+  .final-cta { background: linear-gradient(135deg, var(--emerald-dark), #0d1f18); padding: 90px 5%; text-align: center; position: relative; overflow: hidden; }
+  .final-cta::before { content:''; position:absolute; inset:0; background:url('https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1200&q=60') center/cover; opacity:.1; }
+  .final-cta-inner { position: relative; z-index: 2; }
+  .final-cta h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4.5vw, 3.2rem); color: var(--white); margin-bottom: 12px; }
+  .final-cta p { color: rgba(255,255,255,0.65); font-size: 1rem; margin-bottom: 40px; }
+  .final-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
+  .final-trust { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; }
+  .final-trust-item { display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.65); font-size: 0.78rem; font-weight: 600; }
+  .final-trust-item::before { content: '✓'; color: var(--gold); font-weight: 800; }
+
+  /* ── FOOTER ── */
+  footer { background: #1a1f2e; padding: 60px 5% 30px; }
+  .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 50px; margin-bottom: 40px; }
+  .footer-brand { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--white); margin-bottom: 14px; }
+  .footer-brand span { color: var(--gold); }
+  .footer-desc { font-size: 0.82rem; color: rgba(255,255,255,0.45); line-height: 1.7; }
+  .footer-col h4 { font-size: 0.85rem; font-weight: 700; color: var(--white); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 18px; position: relative; }
+  .footer-col h4::after { content:''; position:absolute; bottom:-6px; left:0; width:28px; height:2px; background:var(--gold); border-radius:2px; }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a { color: rgba(255,255,255,0.45); text-decoration: none; font-size: 0.82rem; transition: color .2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-contact-item { display: flex; gap: 10px; margin-bottom: 12px; font-size: 0.82rem; color: rgba(255,255,255,0.45); }
+  .footer-contact-item strong { color: rgba(255,255,255,0.7); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-size: 0.76rem; color: rgba(255,255,255,0.3); }
+  .footer-rera { font-size: 0.76rem; color: rgba(212,175,55,0.5); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .trust-badges { top: 70px; right: 3%; }
+    .badge { padding: 6px 10px; font-size: 0.65rem; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .features-grid { grid-template-columns: 1fr 1fr; }
+    .amenities-grid { grid-template-columns: 1fr 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
+    .price-card.featured { transform: none; }
+    .inquiry-inner { grid-template-columns: 1fr; }
+    .inquiry-img { display: none; }
+    .trust-grid { grid-template-columns: 1fr 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+    .plan-content.active { grid-template-columns: 1fr; }
+    .countdown { gap: 14px; }
+    .final-btns { flex-direction: column; align-items: center; }
+  }
+  @media (max-width: 480px) {
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .features-grid { grid-template-columns: 1fr; }
+    .hero-btns { flex-direction: column; align-items: center; }
+    .trust-badges { display: none; }
+    .amenities-grid { grid-template-columns: repeat(2,1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo">Emerald <span>Estates</span></div>
+  <ul class="nav-links">
+    <li><a href="#stats">About</a></li>
+    <li><a href="#floorplans">Floor Plans</a></li>
+    <li><a href="#amenities">Amenities</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#inquiry">Contact</a></li>
+  </ul>
+  <a href="#inquiry" class="nav-cta">📞 ENQUIRE NOW</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-geo"></div>
+  <div class="hero-glow"></div>
+  <!-- Trust Badges -->
+  <div class="trust-badges">
+    <div class="badge">RERA Approved<span>Govt. Certified</span></div>
+    <div class="badge">400+ Families<span>Trust Us</span></div>
+    <div class="badge">₹500 Cr Value<span>Portfolio</span></div>
+  </div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">✦ Karimnagar's Most Premium Address ✦</p>
+    <h1 class="hero-h1">Luxury Living<br/>in <em>Karimnagar</em></h1>
+    <p class="hero-sub">Premium properties with world-class amenities</p>
+    <p class="hero-tagline">Where Dreams Find Their Forever Home</p>
+    <div class="hero-btns">
+      <a href="#inquiry" class="btn btn-emerald">🎯 BOOK SITE VISIT</a>
+      <a href="#inquiry" class="btn btn-gold">📥 GET BROCHURE</a>
+      <a href="#floorplans" class="btn btn-blue">🏠 VIEW FLOOR PLANS</a>
+    </div>
+  </div>
+  <div class="hero-arrow" onclick="document.getElementById('stats').scrollIntoView({behavior:'smooth'})">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats" id="stats">
+  <p class="section-label">Our Track Record</p>
+  <h2 class="section-title">Numbers That Speak Volumes</h2>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-icon">🏡</div><div class="stat-num">400+</div><div class="stat-label">Happy Families</div></div>
+    <div class="stat-card"><div class="stat-icon">🌿</div><div class="stat-num">25+</div><div class="stat-label">Acres of Premium Land</div></div>
+    <div class="stat-card"><div class="stat-icon">🔑</div><div class="stat-num">500+</div><div class="stat-label">Units Sold</div></div>
+    <div class="stat-card"><div class="stat-icon">💰</div><div class="stat-num">₹500Cr</div><div class="stat-label">Portfolio Value</div></div>
+  </div>
+</section>
+
+<!-- HIGHLIGHTS -->
+<section class="highlights" id="highlights">
+  <p class="section-label">Why Choose Us</p>
+  <h2 class="section-title">Crafted for Excellence</h2>
+  <div class="features-grid">
+    <div class="feature-card"><div class="feature-icon">🏰</div><div class="feature-check">✓</div><div class="feature-name">Gated Community</div><div class="feature-desc">Exclusive residential township with 24/7 controlled access and premium security infrastructure.</div></div>
+    <div class="feature-card"><div class="feature-icon">💎</div><div class="feature-check">✓</div><div class="feature-name">Premium Amenities</div><div class="feature-desc">World-class facilities including clubhouse, pool, gym, and landscaped gardens.</div></div>
+    <div class="feature-card"><div class="feature-icon">📍</div><div class="feature-check">✓</div><div class="feature-name">Prime Location</div><div class="feature-desc">Strategically situated in Karimnagar's most sought-after neighbourhood with excellent connectivity.</div></div>
+    <div class="feature-card"><div class="feature-icon">🌳</div><div class="feature-check">✓</div><div class="feature-name">Green Living</div><div class="feature-desc">30% open green spaces, organic gardens, and eco-conscious design for sustainable lifestyle.</div></div>
+    <div class="feature-card"><div class="feature-icon">🛡️</div><div class="feature-check">✓</div><div class="feature-name">24/7 Security</div><div class="feature-desc">AI-powered surveillance, trained guards, and smart access systems for complete peace of mind.</div></div>
+    <div class="feature-card"><div class="feature-icon">📈</div><div class="feature-check">✓</div><div class="feature-name">Investment Ready</div><div class="feature-desc">Average 18% annual appreciation. Rental yields up to 6%. Your smartest financial decision.</div></div>
+  </div>
+</section>
+
+<!-- FLOOR PLANS -->
+<section class="floorplans" id="floorplans">
+  <p class="section-label">Configurations</p>
+  <h2 class="section-title">Choose Your Perfect Home</h2>
+  <div class="tabs" id="planTabs">
+    <button class="tab-btn active" data-plan="2bhk">2 BHK</button>
+    <button class="tab-btn" data-plan="3bhk">3 BHK</button>
+    <button class="tab-btn" data-plan="penthouse">Penthouse</button>
+  </div>
+  <!-- 2 BHK -->
+  <div class="plan-content active" id="plan-2bhk">
+    <div class="plan-img">
+      <div class="plan-img-inner" style="background:linear-gradient(135deg,#1B4D3E15,#D4AF3720);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;min-height:320px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;width:80%;max-width:280px;">
+          <div style="background:rgba(27,77,62,0.18);border:1.5px solid rgba(27,77,62,0.35);border-radius:8px;padding:20px;text-align:center;"><div style="font-size:1.8rem;margin-bottom:4px;">🛏</div><div style="font-size:0.7rem;font-weight:700;color:var(--emerald);">BEDROOM 1</div><div style="font-size:0.65rem;color:#888;">12 × 14 ft</div></div>
+          <div style="background:rgba(27,77,62,0.18);border:1.5px solid rgba(27,77,62,0.35);border-radius:8px;padding:20px;text-align:center;"><div style="font-size:1.8rem;margin-bottom:4px;">🛏</div><div style="font-size:0.7rem;font-weight:700;color:var(--emerald);">BEDROOM 2</div><div style="font-size:0.65rem;color:#888;">11 × 12 ft</div></div>
+          <div style="background:rgba(27,77,62,0.12);border:1.5px solid rgba(27,77,62,0.25);border-radius:8px;padding:14px;text-align:center;"><div style="font-size:1.4rem;margin-bottom:4px;">🛋</div><div style="font-size:0.68rem;font-weight:700;color:var(--emerald);">LIVING</div><div style="font-size:0.65rem;color:#888;">16 × 12 ft</div></div>
+          <div style="background:rgba(212,175,55,0.12);border:1.5px solid rgba(212,175,55,0.3);border-radius:8px;padding:14px;text-align:center;"><div style="font-size:1.4rem;margin-bottom:4px;">🍳</div><div style="font-size:0.68rem;font-weight:700;color:var(--gold);">KITCHEN</div><div style="font-size:0.65rem;color:#888;">10 × 8 ft</div></div>
+        </div>
+        <div style="font-size:0.75rem;color:#888;font-weight:600;letter-spacing:1px;">FLOOR PLAN — 2 BHK</div>
+      </div>
+    </div>
+    <div class="plan-info">
+      <h3>2 BHK Apartment</h3>
+      <p class="plan-area">📐 980 sq ft — Carpet Area</p>
+      <ul class="plan-specs">
+        <li>2 Spacious Bedrooms with attached baths</li>
+        <li>Modular kitchen with granite counter-top</li>
+        <li>Private balcony with garden views</li>
+        <li>Italian vitrified tiles throughout</li>
+        <li>UPVC windows with noise insulation</li>
+        <li>Video door phone & smart security</li>
+      </ul>
+      <p class="plan-price">Starting at ₹45 Lakhs <span>onwards</span></p>
+      <a href="#inquiry" class="btn btn-emerald">VIEW DETAILS →</a>
+    </div>
+  </div>
+  <!-- 3 BHK -->
+  <div class="plan-content" id="plan-3bhk">
+    <div class="plan-img">
+      <div class="plan-img-inner" style="background:linear-gradient(135deg,#1B4D3E15,#D4AF3720);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;min-height:320px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;width:90%;max-width:340px;">
+          <div style="background:rgba(27,77,62,0.18);border:1.5px solid rgba(27,77,62,0.35);border-radius:8px;padding:16px;text-align:center;"><div style="font-size:1.5rem;margin-bottom:3px;">🛏</div><div style="font-size:0.65rem;font-weight:700;color:var(--emerald);">BED 1</div><div style="font-size:0.6rem;color:#888;">14×14</div></div>
+          <div style="background:rgba(27,77,62,0.18);border:1.5px solid rgba(27,77,62,0.35);border-radius:8px;padding:16px;text-align:center;"><div style="font-size:1.5rem;margin-bottom:3px;">🛏</div><div style="font-size:0.65rem;font-weight:700;color:var(--emerald);">BED 2</div><div style="font-size:0.6rem;color:#888;">12×14</div></div>
+          <div style="background:rgba(27,77,62,0.18);border:1.5px solid rgba(27,77,62,0.35);border-radius:8px;padding:16px;text-align:center;"><div style="font-size:1.5rem;margin-bottom:3px;">🛏</div><div style="font-size:0.65rem;font-weight:700;color:var(--emerald);">BED 3</div><div style="font-size:0.6rem;color:#888;">11×12</div></div>
+          <div style="grid-column:1/3;background:rgba(27,77,62,0.12);border:1.5px solid rgba(27,77,62,0.25);border-radius:8px;padding:14px;text-align:center;"><div style="font-size:1.3rem;margin-bottom:3px;">🛋</div><div style="font-size:0.65rem;font-weight:700;color:var(--emerald);">LIVING / DINING</div><div style="font-size:0.6rem;color:#888;">20 × 14 ft</div></div>
+          <div style="background:rgba(212,175,55,0.12);border:1.5px solid rgba(212,175,55,0.3);border-radius:8px;padding:14px;text-align:center;"><div style="font-size:1.3rem;margin-bottom:3px;">🍳</div><div style="font-size:0.65rem;font-weight:700;color:var(--gold);">KITCHEN</div><div style="font-size:0.6rem;color:#888;">11×9</div></div>
+        </div>
+        <div style="font-size:0.75rem;color:#888;font-weight:600;letter-spacing:1px;">FLOOR PLAN — 3 BHK</div>
+      </div>
+    </div>
+    <div class="plan-info">
+      <h3>3 BHK Apartment</h3>
+      <p class="plan-area">📐 1,450 sq ft — Carpet Area</p>
+      <ul class="plan-specs">
+        <li>3 Bedrooms — Master with walk-in wardrobe</li>
+        <li>Separate living & dining areas</li>
+        <li>Designer modular kitchen</li>
+        <li>2 full bathrooms + powder room</li>
+        <li>Large wrap-around balcony</li>
+        <li>Home automation ready wiring</li>
+      </ul>
+      <p class="plan-price">Starting at ₹68 Lakhs <span>onwards</span></p>
+      <a href="#inquiry" class="btn btn-emerald">VIEW DETAILS →</a>
+    </div>
+  </div>
+  <!-- Penthouse -->
+  <div class="plan-content" id="plan-penthouse">
+    <div class="plan-img">
+      <div class="plan-img-inner" style="background:linear-gradient(135deg,#D4AF3720,#1B4D3E25);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;min-height:320px;">
+        <div style="text-align:center;padding:30px;">
+          <div style="font-size:4rem;margin-bottom:12px;">🏛️</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:300px;">
+            <div style="background:rgba(212,175,55,0.15);border:1.5px solid rgba(212,175,55,0.4);border-radius:8px;padding:14px;text-align:center;"><div style="font-size:1.2rem;">🛏</div><div style="font-size:0.65rem;font-weight:700;color:var(--gold);">MASTER SUITE</div></div>
+            <div style="background:rgba(212,175,55,0.15);border:1.5px solid rgba(212,175,55,0.4);border-radius:8px;padding:14px;text-align:center;"><div style="font-size:1.2rem;">🌅</div><div style="font-size:0.65rem;font-weight:700;color:var(--gold);">PRIVATE TERRACE</div></div>
+            <div style="background:rgba(212,175,55,0.15);border:1.5px solid rgba(212,175,55,0.4);border-radius:8px;padding:14px;text-align:center;"><div style="font-size:1.2rem;">🍽️</div><div style="font-size:0.65rem;font-weight:700;color:var(--gold);">DINING HALL</div></div>
+            <div style="background:rgba(212,175,55,0.15);border:1.5px solid rgba(212,175,55,0.4);border-radius:8px;padding:14px;text-align:center;"><div style="font-size:1.2rem;">🏊</div><div style="font-size:0.65rem;font-weight:700;color:var(--gold);">PRIVATE POOL</div></div>
+          </div>
+        </div>
+        <div style="font-size:0.75rem;color:#888;font-weight:600;letter-spacing:1px;">FLOOR PLAN — PENTHOUSE</div>
+      </div>
+    </div>
+    <div class="plan-info">
+      <h3>Penthouse Suite</h3>
+      <p class="plan-area">📐 2,800 sq ft — Carpet Area</p>
+      <ul class="plan-specs">
+        <li>4 bedrooms + private study/library</li>
+        <li>Private rooftop terrace (600 sq ft)</li>
+        <li>Personal plunge pool & jacuzzi</li>
+        <li>Double-height living space</li>
+        <li>Panoramic city views, floor-to-ceiling glass</li>
+        <li>Fully automated smart home system</li>
+      </ul>
+      <p class="plan-price">Starting at ₹1.85 Cr <span>onwards</span></p>
+      <a href="#inquiry" class="btn btn-gold">VIEW DETAILS →</a>
+    </div>
+  </div>
+</section>
+
+<!-- AMENITIES -->
+<section class="amenities" id="amenities">
+  <p class="section-label">Lifestyle Features</p>
+  <h2 class="section-title">World-Class Amenities</h2>
+  <div class="amenities-grid">
+    <div class="amenity-card"><div class="amenity-icon">🏊</div><div class="amenity-name">Swimming Pool</div></div>
+    <div class="amenity-card"><div class="amenity-icon">💪</div><div class="amenity-name">Gymnasium</div></div>
+    <div class="amenity-card"><div class="amenity-icon">🏛️</div><div class="amenity-name">Clubhouse</div></div>
+    <div class="amenity-card"><div class="amenity-icon">🎠</div><div class="amenity-name">Kids Area</div></div>
+    <div class="amenity-card"><div class="amenity-icon">🧘</div><div class="amenity-name">Yoga Studio</div></div>
+    <div class="amenity-card"><div class="amenity-icon">🌿</div><div class="amenity-name">Lush Gardens</div></div>
+    <div class="amenity-card"><div class="amenity-icon">⚡</div><div class="amenity-name">Power Backup</div></div>
+    <div class="amenity-card"><div class="amenity-icon">🔐</div><div class="amenity-name">Smart Gates</div></div>
+  </div>
+</section>
+
+<!-- PRICING PLANS -->
+<section class="pricing" id="pricing">
+  <p class="section-label">Payment Plans</p>
+  <h2 class="section-title">Flexible Payment Options</h2>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-tag">PLAN A</div>
+      <div class="price-sub">Construction-Linked Plan</div>
+      <div class="price-splits">
+        <div class="split-row"><span class="split-label">🏦 On Booking</span><span class="split-val">50%</span></div>
+        <hr class="split-line"/>
+        <div class="split-row"><span class="split-label">🏗️ On Completion</span><span class="split-val">30%</span></div>
+        <hr class="split-line"/>
+        <div class="split-row"><span class="split-label">🗝️ On Possession</span><span class="split-val">20%</span></div>
+        <hr class="split-line"/>
+        <div class="split-row interest"><span class="split-label">💳 Interest</span><span class="split-val">0%</span></div>
+      </div>
+      <a href="#inquiry" class="btn btn-emerald" style="width:100%;justify-content:center;">SELECT PLAN</a>
+    </div>
+    <div class="price-card featured">
+      <div class="price-tag">PLAN B</div>
+      <div class="price-sub">Balanced Instalment Plan</div>
+      <div class="price-splits">
+        <div class="split-row"><span class="split-label">🏦 On Booking</span><span class="split-val">30%</span></div>
+        <hr class="split-line"/>
+        <div class="split-row"><span class="split-label">🏗️ Mid Construction</span><span class="split-val">50%</span></div>
+        <hr class="split-line"/>
+        <div class="split-row"><span class="split-label">🗝️ On Possession</span><span class="split-val">20%</span></div>
+        <hr class="split-line"/>
+        <div class="split-row interest"><span class="split-label">📊 Interest Rate</span><span class="split-val">12% p.a.</span></div>
+      </div>
+      <a href="#inquiry" class="btn btn-gold" style="width:100%;justify-content:center;">SELECT PLAN</a>
+    </div>
+    <div class="price-card">
+      <div class="price-tag">PLAN C</div>
+      <div class="price-sub">Post-Possession Plan</div>
+      <div class="price-splits">
+        <div class="split-row"><span class="split-label">🏦 On Booking</span><span class="split-val">25%</span></div>
+        <hr class="split-line"/>
+        <div class="split-row"><span class="split-label">🏗️ During Construction</span><span class="split-val">0%</span></div>
+        <hr class="split-line"/>
+        <div class="split-row"><span class="split-label">🗝️ Post Possession</span><span class="split-val">75%</span></div>
+        <hr class="split-line"/>
+        <div class="split-row interest"><span class="split-label">📊 Interest Rate</span><span class="split-val">8% p.a.</span></div>
+      </div>
+      <a href="#inquiry" class="btn btn-emerald" style="width:100%;justify-content:center;">SELECT PLAN</a>
+    </div>
+  </div>
+</section>
+
+<!-- URGENCY -->
+<section class="urgency" id="urgency">
+  <div class="urgency-inner">
+    <p class="urgency-eyebrow">⏰ LIMITED INVENTORY — ACT NOW</p>
+    <h2 class="urgency-h2">Only 12 Units Remaining</h2>
+    <p class="urgency-units">Out of 48 exclusive units — 75% already sold</p>
+    <div class="progress-wrap">
+      <div class="progress-bar-bg"><div class="progress-bar-fill"></div></div>
+      <p class="progress-label">36 of 48 units sold • 12 units left</p>
+    </div>
+    <div class="countdown" id="countdown">
+      <div class="count-unit"><div class="count-num" id="cd-days">45</div><div class="count-lbl">Days</div></div>
+      <div class="count-sep">:</div>
+      <div class="count-unit"><div class="count-num" id="cd-hours">12</div><div class="count-lbl">Hours</div></div>
+      <div class="count-sep">:</div>
+      <div class="count-unit"><div class="count-num" id="cd-mins">23</div><div class="count-lbl">Min</div></div>
+      <div class="count-sep">:</div>
+      <div class="count-unit"><div class="count-num" id="cd-secs">00</div><div class="count-lbl">Sec</div></div>
+    </div>
+    <a href="#inquiry" class="btn btn-gold" style="font-size:1.05rem;padding:18px 48px;box-shadow:0 0 40px rgba(212,175,55,0.3);">🎯 BOOK NOW & SAVE ₹2 LAKHS</a>
+  </div>
+</section>
+
+<!-- INQUIRY FORM -->
+<section class="inquiry" id="inquiry">
+  <p class="section-label">Get In Touch</p>
+  <h2 class="section-title">Download Free Brochure</h2>
+  <div class="inquiry-inner">
+    <div class="inquiry-img" style="background:linear-gradient(160deg,#1B4D3E,#0d2a20);">
+      <div class="inquiry-img-inner">
+        <div style="font-size:0.72rem;font-weight:700;letter-spacing:3px;color:rgba(212,175,55,0.7);text-transform:uppercase;margin-bottom:24px;">Why Invest Now?</div>
+        <div class="inquiry-img-stat"><strong>18%</strong><span>Annual Appreciation</span></div>
+        <div class="inquiry-img-stat"><strong>6%</strong><span>Rental Yield</span></div>
+        <div class="inquiry-img-stat"><strong>2 km</strong><span>From City Centre</span></div>
+        <div class="inquiry-img-stat"><strong>₹45L</strong><span>Starting Price</span></div>
+        <div style="margin-top:28px;padding:16px;background:rgba(212,175,55,0.12);border:1px solid rgba(212,175,55,0.3);border-radius:10px;font-size:0.8rem;color:rgba(255,255,255,0.6);line-height:1.6;">"Best decision I made. Property value grew 18% in just 2 years." <br><strong style="color:var(--gold);">— Ravi Kumar, 3 BHK Owner</strong></div>
+      </div>
+    </div>
+    <div class="form-wrap">
+      <h3>Get Free Brochure</h3>
+      <p>Fill in your details and we'll send the brochure + exclusive pricing to your email instantly.</p>
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="f-name" placeholder="Enter your full name"/>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="f-email" placeholder="your@email.com"/>
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" id="f-phone" placeholder="+91 98765 43210"/>
+      </div>
+      <div class="form-group">
+        <label>Property Type</label>
+        <select id="f-type">
+          <option value="">Select property type</option>
+          <option>2 BHK — 980 sq ft (from ₹45L)</option>
+          <option>3 BHK — 1,450 sq ft (from ₹68L)</option>
+          <option>Penthouse — 2,800 sq ft (from ₹1.85Cr)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label><span class="budget-label">Budget Range <span class="budget-val" id="budget-label">₹45 Lakhs</span></span></label>
+        <input type="range" min="45" max="200" value="45" id="budget-range" oninput="updateBudget(this.value)"/>
+      </div>
+      <button class="btn btn-emerald" style="width:100%;justify-content:center;font-size:0.95rem;padding:16px;" onclick="submitForm()">📥 GET FREE BROCHURE</button>
+      <div class="success-msg" id="success-msg">✓ Brochure sent to your email! Our team will call you within 2 hours.</div>
+      <p style="font-size:0.73rem;color:#9ca3af;margin-top:14px;text-align:center;">🔒 Your details are 100% secure and will not be shared.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <p class="section-label">Happy Residents</p>
+  <h2 class="section-title">What Our Families Say</h2>
+  <div class="testi-wrap">
+    <div class="testi-card active" data-idx="0">
+      <div class="testi-photo">👨‍👩‍👧</div>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">"Best investment decision of my life! The property has appreciated 18% in just 2 years. The amenities are world-class and the community is wonderful. Emerald Estates truly delivers on every promise they made."</p>
+      <p class="testi-name">Ravi Kumar & Family</p>
+      <p class="testi-prop">3 BHK Owner · Block B, Tower 2</p>
+    </div>
+    <div class="testi-card" data-idx="1">
+      <div class="testi-photo">👩‍💼</div>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">"As a working professional, the gated security and smart amenities are exactly what I needed. The location is perfect — 5 minutes from my office. Rental income has been steady at 6% yield annually."</p>
+      <p class="testi-name">Priya Reddy</p>
+      <p class="testi-prop">2 BHK Owner · Investment Portfolio</p>
+    </div>
+    <div class="testi-card" data-idx="2">
+      <div class="testi-photo">👨‍👦</div>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">"We compared 8 developers in Karimnagar before choosing Emerald Estates. The construction quality, transparency in pricing, and RERA certification gave us complete confidence. No regrets whatsoever!"</p>
+      <p class="testi-name">Suresh & Kavitha Rao</p>
+      <p class="testi-prop">Penthouse Owner · Top Floor, Tower 1</p>
+    </div>
+    <div class="testi-nav">
+      <div class="testi-arrow" id="testi-prev">◀</div>
+      <div class="testi-dots">
+        <div class="testi-dot active" data-t="0"></div>
+        <div class="testi-dot" data-t="1"></div>
+        <div class="testi-dot" data-t="2"></div>
+      </div>
+      <div class="testi-arrow" id="testi-next">▶</div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust">
+  <div class="trust-grid">
+    <div class="trust-box"><div class="trust-check">✅</div><div class="trust-title">RERA Registered</div><div class="trust-sub">Govt. of Telangana Certified</div></div>
+    <div class="trust-box"><div class="trust-check">🏆</div><div class="trust-title">20 Years Experience</div><div class="trust-sub">Trusted Since 2004</div></div>
+    <div class="trust-box"><div class="trust-check">👨‍👩‍👧‍👦</div><div class="trust-title">400+ Happy Customers</div><div class="trust-sub">Karimnagar's Top Developer</div></div>
+    <div class="trust-box"><div class="trust-check">⚖️</div><div class="trust-title">Legal Support</div><div class="trust-sub">Free Documentation Help</div></div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta" id="contact">
+  <div class="final-cta-inner">
+    <p style="font-size:0.75rem;font-weight:700;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:12px;">✦ Take the Next Step ✦</p>
+    <h2>Ready to Invest?</h2>
+    <p>Join 400+ families who have already found their dream home in Karimnagar's most prestigious address.</p>
+    <div class="final-btns">
+      <a href="#inquiry" class="btn btn-gold" style="padding:17px 36px;font-size:1rem;">🗓️ Book Site Visit</a>
+      <a href="#inquiry" class="btn btn-emerald" style="padding:17px 36px;font-size:1rem;">📥 Download Brochure</a>
+      <a href="tel:+919876543210" class="btn btn-blue" style="padding:17px 36px;font-size:1rem;">📞 Call Now</a>
+    </div>
+    <div class="final-trust">
+      <div class="final-trust-item">RERA Certified</div>
+      <div class="final-trust-item">30-Day Satisfaction Guarantee</div>
+      <div class="final-trust-item">Legal Support Included</div>
+      <div class="final-trust-item">Zero Hidden Charges</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">Emerald <span>Estates</span></div>
+      <p class="footer-desc">Karimnagar's most trusted luxury real estate developer with 20 years of excellence. Building homes that appreciate in value and enrich lives. RERA certified. Legally transparent.</p>
+      <div style="margin-top:20px;display:flex;gap:12px;">
+        <div style="width:36px;height:36px;background:rgba(255,255,255,0.08);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;">📘</div>
+        <div style="width:36px;height:36px;background:rgba(255,255,255,0.08);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;">📸</div>
+        <div style="width:36px;height:36px;background:rgba(255,255,255,0.08);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;">▶️</div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul class="footer-links">
+        <li><a href="#stats">About Us</a></li>
+        <li><a href="#floorplans">Floor Plans</a></li>
+        <li><a href="#amenities">Amenities</a></li>
+        <li><a href="#pricing">Payment Plans</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#inquiry">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact Us</h4>
+      <div class="footer-contact-item"><strong>📍</strong><span>Emerald Estates, Survey No. 142,<br/>Karimnagar Main Road, Karimnagar,<br/>Telangana — 505001</span></div>
+      <div class="footer-contact-item"><strong>📞</strong><span>+91 98765 43210</span></div>
+      <div class="footer-contact-item"><strong>✉️</strong><span>info@emeraldestates.in</span></div>
+      <div class="footer-contact-item"><strong>🕐</strong><span>Mon–Sat: 9 AM – 7 PM<br/>Sunday: 10 AM – 5 PM</span></div>
+      <div style="margin-top:16px;padding:10px 14px;background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.2);border-radius:8px;">
+        <div style="font-size:0.7rem;color:var(--gold);font-weight:700;">RERA Registration</div>
+        <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:2px;">P09TS0000XXXX</div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2024 Emerald Estates, Karimnagar. All rights reserved.</p>
+    <p class="footer-rera">RERA Approved · Legal & Transparent · Zero Hidden Charges</p>
+  </div>
+</footer>
+
+<script>
+  // Floor plan tabs
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.plan-content').forEach(p => p.classList.remove('active'));
+      this.classList.add('active');
+      document.getElementById('plan-' + this.dataset.plan).classList.add('active');
+    });
+  });
+
+  // Testimonials
+  let curT = 0;
+  const cards = document.querySelectorAll('.testi-card');
+  const dots = document.querySelectorAll('.testi-dot');
+  function showTesti(idx) {
+    cards.forEach(c => c.classList.remove('active'));
+    dots.forEach(d => d.classList.remove('active'));
+    curT = (idx + cards.length) % cards.length;
+    cards[curT].classList.add('active');
+    dots[curT].classList.add('active');
+  }
+  document.getElementById('testi-next').addEventListener('click', () => showTesti(curT + 1));
+  document.getElementById('testi-prev').addEventListener('click', () => showTesti(curT - 1));
+  dots.forEach(d => d.addEventListener('click', () => showTesti(+d.dataset.t)));
+  setInterval(() => showTesti(curT + 1), 5000);
+
+  // Countdown timer
+  const target = new Date();
+  target.setDate(target.getDate() + 45);
+  target.setHours(target.getHours() + 12);
+  target.setMinutes(target.getMinutes() + 23);
+  function updateCountdown() {
+    const now = new Date();
+    const diff = target - now;
+    if (diff <= 0) return;
+    const days = Math.floor(diff / (1000*60*60*24));
+    const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+    const mins = Math.floor((diff % (1000*60*60)) / (1000*60));
+    const secs = Math.floor((diff % (1000*60)) / 1000);
+    document.getElementById('cd-days').textContent = String(days).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+    document.getElementById('cd-mins').textContent = String(mins).padStart(2,'0');
+    document.getElementById('cd-secs').textContent = String(secs).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // Budget slider
+  function updateBudget(val) {
+    const v = parseInt(val);
+    document.getElementById('budget-label').textContent = v >= 100 ? '₹' + (v/100).toFixed(2) + ' Cr' : '₹' + v + ' Lakhs';
+  }
+
+  // Form submit
+  function submitForm() {
+    const name = document.getElementById('f-name').value;
+    const email = document.getElementById('f-email').value;
+    const phone = document.getElementById('f-phone').value;
+    if (!name || !email || !phone) { alert('Please fill in all required fields.'); return; }
+    document.getElementById('success-msg').classList.add('show');
+  }
+
+  // Intersection Observer for subtle scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.stat-card, .feature-card, .amenity-card, .price-card, .trust-box').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease, box-shadow 0.25s, border-color 0.25s, background 0.25s, scale 0.25s';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
